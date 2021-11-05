@@ -1,0 +1,29 @@
+import wollok.game.*
+import hector.*
+import cultivos.*
+import extras.*
+
+program granja {
+	//  CONFIG	
+	game.title("La granja de Héctor")
+	game.height(10)
+	game.width(10)
+	game.ground("pasto.png")
+
+	//  VISUALES
+ 	mercado.iniciar()
+ 	game.addVisualCharacter(hector)
+ 	game.addVisual(puntaje)
+ 	game.addVisual(cosechas)
+ 	
+ 	//	TECLAS
+ 	keyboard.m().onPressDo({ hector.sembrarMaiz() })
+ 	keyboard.t().onPressDo({ hector.sembrarTrigo() })
+ 	keyboard.o().onPressDo({ hector.sembrarTomaco() })
+ 	keyboard.r().onPressDo({ hector.regarPlantasDebajo() })
+ 	keyboard.c().onPressDo({ hector.cosecharPlantasDebajo() })
+ 	keyboard.v().onPressDo({ hector.venderTodo() })
+ 	
+ 	//  COMIENZA
+	game.start()
+}

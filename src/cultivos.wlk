@@ -2,18 +2,21 @@ import wollok.game.*
 
 class Maiz {
 	const property position
-	var esAdulta = false
+	var esAdulto = false
 
 	method image() {
-		return "corn_" + self.sufijo() + ".png"
+		const sufijo = if (esAdulto) "adulto" else "bebe"
+		return "maiz_" + sufijo + ".png"
 	}
 
 	method regar() {
-		esAdulta = true
+		esAdulto = true
 	}
 	
-	method sufijo() { return if (esAdulta) "adult" else "baby" }
-
+	method listoParaCosechar() { return esAdulto }
+	
+	method valor() { return 150 }
+	
 }
 
 class Trigo {
