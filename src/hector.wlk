@@ -15,7 +15,7 @@ object hector {
 	}
 	
 	method sembrarTrigo() {
-	   // 	TODO: Completar
+	   		self.sembrar(new Trigo(position = position))
 	}
 
 	method sembrarTomaco() {
@@ -26,18 +26,20 @@ object hector {
 
 
 	method sembrar(unCultivo) {
-		game.addVisual(unCultivo)
+		if(not self.hayAlgoSembrado())
+			game.addVisual(unCultivo)
 	}
 
+	method hayAlgoSembrado() {
+		return not game.colliders(self).isEmpty()
+	}
+	
 	method regarPlantasDebajo() {
-		self.cultivosDebajo().forEach({ unCultivo => unCultivo.regar()})
+		self.cultivoDebajo().regar()
 	}
 
 	method cosecharPlantasDebajo() {
-		self.cultivosDebajo().forEach({ unCultivo => self.cosechar(unCultivo)})
-	}
-	
-	method cosechar(unCultivo) {
+		const unCultivo = self.cultivoDebajo()
 		if (not unCultivo.sePuedeCosechar()) {
 			unCultivo.error("No estoy lista para cosechar")
 		}
@@ -57,12 +59,11 @@ object hector {
 	method monedas() { return monedas }
 	method plantasCosechadas() { return plantasCosechadas }
 
-	method cultivosDebajo() {
-		const cultivosARegar = game.colliders(self)
-		if (cultivosARegar.isEmpty()) {
+	method cultivoDebajo() {
+		if (not self.hayAlgoSembrado()) {
 			self.error("no hay plantas aquí") 
 		}
-		return cultivosARegar
+		return game.colliders(self).first()
 	}
 
 }
