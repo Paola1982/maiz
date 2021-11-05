@@ -15,7 +15,7 @@ object hector {
 	}
 	
 	method sembrarTrigo() {
-		self.sembrar(new Trigo(position = position))
+	   // 	TODO: Completar
 	}
 
 	method sembrarTomaco() {

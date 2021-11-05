@@ -3,9 +3,9 @@
 ## Intro
 Héctor es un granjero que se gana la vida cultivando plantas de distintas especies.
 Para ello tiene que sembrar, regar y cosechar sus cultivos. Después de la cosecha, Héctor vende lo que cultivó, obteniendo ganancias en forma de monedas.
-Héctor es muy ahorrativo y todo el oro que obtiene por sus cosechas lo acumula.
+Héctor es muy ahorrativo y todas las monedas que obtiene por sus cosechas las guarda.
 
-Actualmente ya contamos con un juego en el que podemos controlar a Héctor a partir del teclado, pero solamente puede cultivar maíz. 
+Actualmente ya contamos con un juego en el que podemos hacer que Héctor se mueva y realice su trabajo de cultivar maíz a partir del teclado. 
 Nuestro objetivo es terminar el juego para que Héctor pueda cultivar otras plantas.
 
 ### Estructura del proyecto
@@ -53,18 +53,18 @@ Al probar el juego nos daremos cuenta que hay cultivos que faltan implementar. D
 
 ### Trigo
 
-El trigo conoce su etapa de evolución, que comienza en 0. Y su imagen será `trigo_x.png`, donde la x corresponde a la etapa de evolución actual.
-Al ser regada, pasa a la etapa de evolución siguiente: de 0 a 1, de 1 a 2, de 2 a 3, de 3 vuelve a 0.
-Se puede cosechar si está en nivel de evolución 2 o más. Y su valor es de 100 monedas si está en etapa 2, 200 si está en etapa 3. La cuenta cheta es `(etapa - 1) * 100`.
+El trigo conoce su etapa de crecimiento, que comienza en 0. Y su imagen será `trigo_x.png`, donde la x corresponde a la etapa de crecimiento actual.
+Al ser regada crece, pasando a la etapa de crecimiento siguiente: de 0 a 1, de 1 a 2, de 2 a 3, de 3 vuelve a 0.
+Se puede cosechar si está en nivel de crecimiento 2 o más. Y su valor es de 100 monedas si está en etapa 2, 200 si está en etapa 3. ¿Se podria hacer una cuenta cheta para calcularlo?
 
-En conclusión, el Trigo debería guardarse su `etapa de evolución` y entender los siguientes mensajes:
+En conclusión, el Trigo debería recordar su `etapa  de crecimiento` y entender los siguientes mensajes:
 
 | Mensaje | Comportamiento esperado |
 |---|---|
-| **image()**   | Armar y retornar un string de la forma `trigo_x.png`, donde la x corresponde a la etapa de evolución |
-| **regar()**   | Cambiar su `etapa de evolución` a la siguiente |
-| **sePuedeCosechar()**   | Retornar si su `etapa de evolución` es 2 o más |
-| **valor()**   | Retornar un número que se calcula como `(etapa de evolución - 1) * 100` |
+| **image()**   | Armar y retornar un string de la forma `trigo_x.png`, donde la x corresponde a la etapa de crecimiento |
+| **regar()**   | Cambiar su `etapa de crecimiento` a la siguiente |
+| **sePuedeCosechar()**   | Retornar si su `etapa de crecimiento` es 2 o más |
+| **valor()**   | Retornar un número que se calcula como `(etapa de crecimiento - 1) * 100` |
 
 > Si tenés dudas sobre cómo implementar algún método podés mirar cómo está hecho el Maiz 😉
 
