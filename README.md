@@ -24,6 +24,8 @@ El proyecto cuenta con la siguiente estructura:
 > Para esta actividad es necesario [tener instalado el IDE de Wollok](https://www.wollok.org/instalacion/).
 > Pueden contrar documentación sobre el lenguaje y las herramienas en el sitio web: https://www.wollok.org/documentacion/conceptos/
 
+> Para **importar un proyecto desde Github al IDE** hay que copiar la URI de este repositorio y en Wollok ir al menú: `Archivo -> Importar.. -> Proyecto desde git -> Clonar URI` Wollok detecta automáticamente la URI copiada y luego hay que continuar hasta finalizar las pantallas.
+
 --------
 
 ## Paso 1 - Probar el juego
