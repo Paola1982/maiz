@@ -1,101 +1,114 @@
 # Granjavilla
 
-### Intro
+## Intro
 Héctor es un granjero que se gana la vida cultivando plantas de distintas especies.
-Para ello tiene que sembrar, regar y cosechar sus cultivos. Después de la cosecha, Héctor vende lo que cultivó, obteniendo ganancias en la forma de monedas de oro.
+Para ello tiene que sembrar, regar y cosechar sus cultivos. Después de la cosecha, Héctor vende lo que cultivó, obteniendo ganancias en forma de monedas.
 Héctor es muy ahorrativo y todo el oro que obtiene por sus cosechas lo acumula.
 
-Nuestro objetivo es construir un juego en el que podamos controlar a héctor, 
-utilizando el teclado para moverlo alrededor del tablero. 
+Actualmente ya contamos con un juego en el que podemos controlar a Héctor a partir del teclado, pero solamente puede cultivar maíz. 
+Nuestro objetivo es terminar el juego para que Héctor pueda cultivar otras plantas.
 
-En este juego consideramos tres especies: _maíz_, _trigo_ y _tomaco_. 
+### Estructura del proyecto
 
-Contamos con imágenes en la carpeta assets para ilustrar el juego.
-
-TIP: En los nombres de las imágenes, recordar que "corn" es maíz y "wheat" es trigo en inglés.
-
-### Sembrar
-Además de moverse, Héctor debe poder realizar las siguientes acciones:
-- Al apretar la M siembra una semilla de maíz en su posición actual.
-- Al apretar la T siembra una semilla de trigo en su posición actual.
-- Al apretar la O siembra una semilla de tomaco en su posición actual.
-
-El acto de sembrar crea una nueva planta, con estas características:  
-
-| Planta | Situación al ser sembrada |
-|---|---|
-| **Maíz**   | Es una planta bebé, corresponde la imagen `corn_baby.png` |
-| **Trigo**  | Está en etapa de evolución 0, corresponde la imagen `wheat_0.png` |
-| **Tomaco** | Es una planta hecha y derecha, corresponde la imagen `tomaco.png` | 
-
-
-**Atención**  
-queda librado a cada quien si se permite, o no, que haya más de una planta en una misma posición. 
-Vale cuidarse de no hacerlo al principio, y agregar la validación más adelante.  
-_OJO_ si se pone en la misma posición p.ej. dos plantas de maíz, entonces al regarse se van a regar las dos, al cosecharse se van a cosechar las dos, etc, pero se va a mostrar una sola imagen.
-
-
-### Regar
-Una vez sembrado un cultivo, para que crezca debe ser regado. 
-Cuando presionamos la R, Héctor debe regar la planta que se encuentre en su misma posición.
-Si no hay una planta, tirar una excepción indicando "no tengo nada para regar".
-
-Qué pasa cuando se riega una planta: 
-
-| Planta | Efecto al ser regada |
-|---|---|
-| **Maíz**   | Si es bebé, pasa a adulta, y la imagen cambia a `corn_adult.png`. <br> Si ya es adulta, no hacer nada |
-| **Trigo**  | Pasa a la etapa de evolución siguiente: de 0 a 1, de 1 a 2, de 2 a 3, de 3 vuelve a 0. <br> La imagen cambia a `wheat_x.png`, donde la x corresponde a la etapa de evolución. |
-| **Tomaco** | Se mueve a la celda de arriba. <br> Si ya está en el borde de arriba, no hace nada (o pasa abajo de todo :D) | 
+El proyecto cuenta con la siguiente estructura:
+```
+- src/            -> Carpeta con el código fuente
+  - cultivos.wlk  -> Código de los cultivos
+  - hector.wlk    -> Código de Héctor
+  - extras.wlk    -> Código de otros objetos
+  - juego.wpgm    -> Programa para iniciar el juego
   
+- assets/         -> Carpeta con las imágenes y sonidos
+```
+
+> Para esta actividad es necesario [tener instalado el IDE de Wollok](https://www.wollok.org/instalacion/).
+> Pueden contrar documentación sobre el lenguaje y las herramienas en el sitio web: https://www.wollok.org/documentacion/conceptos/
+
+--------
+
+## Paso 1 - Probar el juego
+
+Lo primero que vamos a hacer es probar el estado actual del juego, para eso hay que ejecutar el archivo `juego.wpgm`:
+
+`Click derecho sobre el archivo -> Ejecutar como -> Programa Wollok`
+
+Se debería abrir una pantalla del sistema operativo con el juego. ¡A jugar!
+
+### Controles
+
+| Tecla | Efecto  |
+|---|---|
+| **Fechas**   | mueven a Héctor |
+| **M**   | siembra una semilla de **maíz** en su posición actual |
+| **T**   | siembra una semilla de **trigo** en su posición actual. **(No funciona)** |
+| **O**   | siembra una semilla de **tomaco** en su posición actual. **(No funciona)** |
+| **R**   | **Riega** los cultivos que se encuentren sobre Héctor |
+| **C**   | **Cosecha** los cultivos que se encuentren sobre Héctor |
+| **V**   | Héctor **vende** todos los cultivos cosechados |
 
 
-## Cosecha
-Las plantas adultas se pueden cosechar.
-Cuando presionamos la C, se espera que Héctor coseche la planta que se encuentra en su misma posición.
-Otra vez, si no hay ninguna planta, tirar una excepción indicando "no tengo nada para cosechar".
+## Paso 2 - Terminar lo que falta
 
-Si hay una planta, puede o no estar lista para la cosecha.
-El _maíz_ está listo para la cosecha si es adulto, el _trigo_ si está en nivel de evolución 2 o más, el _tomaco_ siempre.
+Al probar el juego nos daremos cuenta que hay cultivos que faltan implementar. Debemos **programar el Trigo y el Tomaco** que se encuntran en el archivo `cultivos.wlk` con el siguiente comportamiento:
 
-Si la planta está lista para la cosecha, se la cosecha, para luego poder venderla. Héctor debe recordar qué plantas tiene para vender. El acto de cosechar una planta implica que desaparece del juego.  
-Caso contrario, no se hace nada.
+### Trigo
 
-**Nota**  
-Si hay varias plantas en el mismo lugar, puede ser que algunas estén para cosechar y otras no. OJO con eso.
+El trigo conoce su etapa de evolución, que comienza en 0. Y su imagen será `trigo_x.png`, donde la x corresponde a la etapa de evolución actual.
+Al ser regada, pasa a la etapa de evolución siguiente: de 0 a 1, de 1 a 2, de 2 a 3, de 3 vuelve a 0.
+Se puede cosechar si está en nivel de evolución 2 o más. Y su valor es de 100 monedas si está en etapa 2, 200 si está en etapa 3. La cuenta cheta es `(etapa - 1) * 100`.
 
-**TIP**  
-Buscar la docentación de Wollok game en http://www.wollok.org/documentacion/wollokdoc/ 
-para saber cómo obtener los objetos que están en la misma posición que Héctor.
-Ojo que al hacer eso, entre los objetos que encuentren puede estar el propio Héctor.
+En conclusión, el Trigo debería guardarse su `etapa de evolución` y entender los siguientes mensajes:
 
-## Venta
-Usando la letra V, Héctor vende lo que tiene para vender.
-   
-Al hacerlo, obtiene el oro por cada planta que tiene, de acuerdo a esta especificación:
-- **Maíz**: 150 monedas por planta.
-- **Trigo**: 100 monedas si está en etapa 2, 200 si está en etapa 3. La cuenta cheta es `(etapa - 1) * 100`.
-- **Tomaco**: 80 monedas por planta.
+| Mensaje | Comportamiento esperado |
+|---|---|
+| **image()**   | Armar y retornar un string de la forma `trigo_x.png`, donde la x corresponde a la etapa de evolución |
+| **regar()**   | Cambiar su `etapa de evolución` a la siguiente |
+| **sePuedeCosechar()**   | Retornar si su `etapa de evolución` es 2 o más |
+| **valor()**   | Retornar un número que se calcula como `(etapa de evolución - 1) * 100` |
 
-Héctor debe acumular el oro y recordar cuánto oro obtuvo en total. Al presionar la barra espaciadora, queremos que Héctor nos diga: cuántas plantas tiene para vender, y cuánto oro juntó en total.  
-P.ej. "tengo 800 monedas, y 3 plantas para vender".
+> Si tenés dudas sobre cómo implementar algún método podés mirar cómo está hecho el Maiz 😉
 
-**Atenti**  
-Una vez que vende lo que tiene para vender, obviamente, deja de tenerlo.
+#### Es importante que los cultivos entiendan el mismo mensaje para que Héctor los pueda tratar de la misma manera. Esto se conoce como POLIMORFISMO.
 
 
-## Bonus
+### Tomaco
 
-### Aspersores
-Al presionar la tecla A, hacer que Héctor deje un aspersor donde se encuentra. El aspersor (imagen `aspersor.png`) tiene la capacidad de regar las plantas que tiene alrededor, o sea en las posiciones limítrofes a donde se encuentra el aspersor, _automáticamente cada 1 segundo_.
+El Tomaco es una planta hecha y derecha. Su imagen siempre es `tomaco.png`.
+Tiene un comportamiento extraño al ser regada: se mueve a la posición de arriba. Si ya está en el borde de arriba, pasa abajo de todo.
+Se puede cosechar en cualquier momento y su valor es de 80 monedas por planta.
 
-**Nota**  
-Pensar en los objetos que _podrían_ ser regados por el aspersor: ¿Qué pasa si Héctor se queda parado al lado? ¿Y si hay otro aspersor? 
+O sea que el comportamiento del Tomaco quedaría:
 
-**TIP**  
-Buscar la docentación de Wollok game en http://www.wollok.org/documentacion/wollokdoc/ cómo manejar eventos temporales.
+| Mensaje | Comportamiento esperado |
+|---|---|
+| **image()**   | Retornar siempre `tomaco.png` |
+| **regar()**   | Cambiar su `position` |
+| **sePuedeCosechar()**   | Retornar siempre `true` |
+| **valor()**   | Retornar siempre `80` |
 
-### Varios mercados
-Incluir dos o tres mercados (imagen `market.png`), eligiendo dónde poner cada uno en el tablero. 
-Cada mercado tiene una cantidad de monedas, y mercadería para vender.  
-Hacer que Héctor solamente pueda vender si está en un mercado, y además el mercado tiene suficiente cantidad de monedas para pagar lo que Héctor tiene para vender. En tal caso, la mercadería se agrega al mercado, y se le descuentan las monedas que le da a Héctor en pago.  
+> Si tenés dudas sobre cómo cambiar de posición te recomendamos leer la documentación de **Wollok Game**, pestaña `Game` en la documentación del sitio (Moviendo objetos): https://www.wollok.org/documentacion/conceptos/
+
+
+## Paso 3 - Volver a jugar
+
+Una vez implementado los cultivos que faltan, asegurarse que todo quedó funcionando como se espera y que el programa no tiene errores.
+
+Si algún cultivo no aparece revisá los métodos para sembrar de Héctor en el archivo `hector.wlk`. Recordá que para crear un objeto a partir de una clase se usa `new`. Esta operación se conoce como **INSTANCIAR**.
+
+## Paso 4 - Conclusiones
+
+En esta actividad estuvimos programando nuevos cultivos, pero en vez de escribir los métodos y atributos (que definen el comportamiento de un objeto) en los mismos objetos lo hicimos en una _CLASE_. 
+
+**Las clases nos permiten crear muchos objetos distintos, pero con el mismo comportamiento**, a esto lo conocemos como "_instanciar_ un objeto de una clase". También decimos que los objetos creados a partir de una clase son _instancias_ de esa clase. Gracias a esto logramos que Héctor pueda cultivar muchos maíces, trigos y tomacos a lo largo de la granja. 
+
+## Paso 5 - Personalizar tu juego
+
+¡Muy bien, logramos el objetivo de la actividad! Ahora podés personalizar tu juego como quieras, te dejamos algunas ideas:
+
+- Agregar nuevos cultivos e inventarles su comportamiento. Te dejamos algunas imágenes de `arbusto`s por si querés usar. Hay que pensar: _¿Qué pensajes debe entender los objetos que representan cultivos?_
+
+- Extender el juego con otros objetos. Te dejamos imágenes de algunos animales de granja por si querés usar. Hay que pensar: _¿Vamos a querer un solo objeto o muchos del mismo estilo?_ Esto determina si vamos a programar un objeto autodefinido o una clase.
+
+- Cambiar el comportamiento de algún objeto. Sí, podés cambiar el código que ya está escrito para que haga otra cosa. ¿Viste el mercado que está en el juego? Ahora no hace mucho, pero se podría hacer que Héctor venda los cultivos cuando pase por allí.
+
+- ¿Alguna otra idea? Compartila con el grupo 😃
