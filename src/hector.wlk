@@ -11,19 +11,23 @@ object hector {
 	// SEMBRAR
 
 	method sembrarMaiz() {
-		game.addVisual(new Maiz(position = position))
+		self.sembrar(new Maiz(position = position))
 	}
 	
 	method sembrarTrigo() {
-		game.addVisual(new Trigo(position = position))
+		self.sembrar(new Trigo(position = position))
 	}
 
 	method sembrarTomaco() {
-		game.addVisual(new Tomaco(position = position))
+		// TODO: Completar
 	}
 	
 	// Si necesita sembrar más cosas hay que agregar más métodos
 
+
+	method sembrar(unCultivo) {
+		game.addVisual(unCultivo)
+	}
 
 	method regarPlantasDebajo() {
 		self.cultivosDebajo().forEach({ unCultivo => unCultivo.regar()})
@@ -34,7 +38,7 @@ object hector {
 	}
 	
 	method cosechar(unCultivo) {
-		if (not unCultivo.listoParaCosechar()) {
+		if (not unCultivo.sePuedeCosechar()) {
 			unCultivo.error("No estoy lista para cosechar")
 		}
 		game.removeVisual(unCultivo)

@@ -1,6 +1,7 @@
 import wollok.game.*
 
 class Maiz {
+
 	const property position
 	var esAdulto = false
 
@@ -12,11 +13,15 @@ class Maiz {
 	method regar() {
 		esAdulto = true
 	}
-	
-	method listoParaCosechar() { return esAdulto }
-	
-	method valor() { return 150 }
-	
+
+	method sePuedeCosechar() {
+		return esAdulto
+	}
+
+	method valor() {
+		return 150
+	}
+
 }
 
 class Trigo {
